@@ -3,14 +3,19 @@
 |--------------|----------------------------|
 | Name         | FIRST_NAME LAST_NAME       |
 | Date         | MM/DD/YYYY                 |
-| Course       | Fall / Spring / Summer     |
-| Assignment # |                            |
+| Course       | Spring                     |
+| Assignment # | Final Project              |
 
 # Assignment Overview
-Please add a paragraph or two overviewing the objectives of the assignment.
+The objective of this assignment is to create a Client/Server framework closely resembling an Http based web server
+where the Client can get, post, or delete resources from a web server. The classes are built to handle generic resource
+types but in this implementation they are handling MlbPlayer objects which represent professional baseball players and
+their accumulated statistics. The server uses the Throttling pattern to limit some Clients' access to resources.
+The Callback pattern is used to define function when a resource is retreived from the server. Lastly the Builder pattern
+is used to create the MlbPlayer resources that are sent to the server.
 
 # GitHub Repository Link:
-https://github.com/{YOUR_USERNAME}/cs-665-assignment-{ASSIGNMENT_NUMBER}
+https://github.com/wablack01/cs-665-assignment-final
 
 # Implementation Description 
 
@@ -19,11 +24,28 @@ For each assignment, please answer the following:
 
 - Explain the level of flexibility in your implementation, including how new object types can
 be easily added or removed in the future.
+  - All classes in this implementation are built using generics so Servers and Clients can be instantiated and
+  configured using any type of native or custom object. Similarly the Callbacks are set up to operate on any type
+  of object used by the Client. To add new object types simply define new Classes and instantiate the Client and
+  Server using those classes. New Callbacks can also be configured and passed to the Client as lambda functions.
 - Discuss the simplicity and understandability of your implementation, ensuring that it is
 easy for others to read and maintain.
+  - Code is clearly commented and separated in logical packages. Function and class behavior is intended to be evident
+  by their names. Additionally, functions are designed to each perform one task.
 - Describe how you have avoided duplicated code and why it is important.
+  - By using generics the classes are set up to offer maximum flexibility. The clients and servers are set up to handle
+  any kind of object, so no code must be repeated to handle different object types. The only new code that would need
+  to be written is custom Callback handlers that operate on the properties of the new objects.
 - If applicable, mention any design patterns you have used and explain why they were
 chosen.
+  - I implemented the Throttling, Callback, and Builder design patterns. The Throttling pattern is a useful tool
+  to make sure a Server does not get overloaded with requests from Clients. A maximum standard request rate is defined
+  in the server. Any clients with the ClientType.STANDARD property can not exceed that rate of requests. 
+  ClientTier.PREMIUM or ClientTier.ADMIN Clients are intended to represent premium paid users or employees can bypass 
+  the rate throttling. Callbacks are used to separate the Client request logic from the data processing logic. Each
+  request can be given its own Callback logic to be handled when the request completes or none at all. Lastly the
+  Builder pattern is used to simplify the construction of MlbPlayer objects which have a large number of properties
+  most of which are not required to instantiate an object.
 
 
 # Maven Commands
